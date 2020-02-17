@@ -8,7 +8,7 @@
 ### 1.1 使用试例
 
 	SharedPreferences sharedPreferences = getSharedPreferences("gityuan", Context.MODE_PRIVATE);
-
+	
 	Editor editor = sharedPreferences.edit();
 	editor.putString("blog", "www.gityuan.com");
 	editor.putInt("years", 3);
@@ -28,7 +28,7 @@ SharedPreferences与Editor只是两个接口. SharedPreferencesImpl和EditorImpl
 * sSharedPrefsCache:以包名为key, 二级key是以SP文件, 以SharedPreferencesImpl为value的嵌套map结构. 这里需要sSharedPrefsCache是静态类成员变量, 每个进程是保存唯一一份, 且由ContextImpl.class锁保护.
 * mSharedPrefsPaths:记录所有的SP文件, 以文件名为key, 具体文件为value的map结构;
 * mPreferencesDir:是指SP所在目录, 是指/data/data//shared_prefs/
-![分析图](img/shared_preferences_arch.jpg)
+![分析图](../../img/shared_preferences_arch.jpg)
 图解:
  1. putxxx()操作: 把数据写入到EditorImpl.mModified;
  2. apply()或者commit()操作:
