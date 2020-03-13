@@ -90,3 +90,49 @@
 1. 高优先级线程吞噬所有的低优先级线程的 CPU 时间。
 2. 线程被永久堵塞在一个等待进入同步块的状态，因为其他线程总是能在它之前持续地对该同步块进行访问。
 3. 线程在等待一个本身也处于永久等待完成的对象 (比如调用这个对象的 wait 方法)，因为其他线程总是被持续地获得唤醒。
+
+# Java创建对象的几种方式
+
+1. 使用new关键字 
+2. 使用Class类的newInstance方法 
+3. 使用Constructor类的newInstance方法 
+4. 使用clone方法 
+5. 使用反序列化
+
+## 例子
+
+### 使用new关键字
+
+```java
+Employee emp1 = new Employee();
+```
+
+### 使用Class类的newInstance方法 
+
+```java
+Employee emp2 = (Employee) Class.forName("org.programming.mitra.exercises.Employee").newInstance();
+
+&
+
+  Employee emp2 = Employee.class.newInstance();
+```
+
+### 使用Constructor类的newInstance方法
+
+```java
+Constructor<Employee> constructor = Employee.class.getConstructor();
+Employee emp3 = constructor.newInstance();
+```
+
+### 使用clone方法 
+
+```java
+Employee emp4 = (Employee) emp3.clone();
+```
+
+### 使用反序列化
+
+```java
+ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.obj"));
+Employee emp5 = (Employee) in.readObject();
+```
