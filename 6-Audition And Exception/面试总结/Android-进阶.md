@@ -144,23 +144,6 @@ void scheduleTraversals() {
 > [Android 消息机制和应用](https://yanzhenjie.blog.csdn.net/article/details/89218745)<br>
 > [ Java/Android 中的优先级任务队列的实践](https://yanzhenjie.blog.csdn.net/article/details/71773950)
 
-# Serializable 和 Parcelable 的区别？
-
-Serializable（Java 自带）： Serializable 是序列化的意思，表示将一个对象转换成可存储或可传输的状态。序列化后的对象可以在网络上进行传输，也可以存储到本地。
-
-Parcelable（android 专用）： 除了 Serializable 之外，使用 Parcelable 也可以实现相同的效果， 不过不同于将对象进行序列化，Parcelable 方式的实现原理是将一个完整的对象进行分解， 而分解后的每一部分都是 Intent 所支持的数据类型，这样也就实现传递对象的功能了。
-
-## 区别
-
-1. 在使用内存的时候，Parcelable 类比 Serializable 性能高，所以推荐使用 Parcelable 类。
-2. Serializable 在序列化的时候会产生大量的临时变量，从而引起频繁的 GC。
-3. Parcelable 不能使用在要将数据存储在磁盘上的情况。尽管 Serializable 效率低点，但在这种情况下，还是建议你用 Serializable 。
-
-## 实现
-
-1. Serializable 的实现，只需要继承 Serializable 即可。这只是给对象打了一个标记，系统会自动将其序列化。
-2. Parcelabel 的实现，需要在类中添加一个静态成员变量 CREATOR，这个变量需要继承 Parcelable.Creator 接口，（一般利用编译器可以自动生成）。
-
 # Android 的大题架构
 
 - 应用层（System Apps）

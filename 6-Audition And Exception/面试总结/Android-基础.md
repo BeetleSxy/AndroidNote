@@ -79,9 +79,46 @@ Context数量 = Activity数量 + Service数量 + 1 （1为Application）
 - 优先级动态广播的优先级比静态广播高
 
 # Activity 的生命周期？
-Android 生命周期
 三大类：开始，绘制，响应
-开始：onClic
+
+开始：onCreate->onStrart->onResume
+
+关闭：onPause->onStop->onDestroy
+
+后台销毁：onStop->onRestrart->onStrart
+
+# Activity 的四种 LaunchMode（启动模式）的区别？
+
+- Standard（标准模式）
+  - 每次新建
+- SingleTop（栈顶复用模式）
+  - 会判断栈顶是否已经有启动，启动的话就服用，不会执行onCreate，会执行newIntent（）
+- SingleTask（栈内复用模式）
+  1. 应用内唯一，复用时newIntent（），注意复用时会将栈上的activity出栈操作。
+- SingleInstance（全局唯一模式）
+  - 进程唯一
+
+## standard（默认）
+
+创建新的 Activity ，拥有新的 ID
+
+## singleTop（顶部唯一）
+
+被复用时会走`onNewIntent()`而非`onCreate()`;
+
+## singleTask（栈内唯一）
+
+被复用时会走`onNewIntent()`而非`onCreate()`;
+
+注意：**当前系统中已经存在目标Activity的实例**，系统会把任务栈中**目标Activity之上的所有Activity销毁**，以让目标Activity处在栈顶的位置。
+
+不同进程可以存在重复；
+
+## singleInstance（唯一栈）
+
+被复用时会走`onNewIntent()`而非`onCreate()`;
+
+全局唯一；
 
 # Activity 和 Fragment 之间怎么通信， Fragment 和 Fragment 怎么通信？
 
@@ -91,10 +128,41 @@ Fragment 传值给 Activity：在 Fragment 中定义一个内部回调接口，A
 
 Fragment 传值给 Fragment：一个 Fragment 通过 Activity 获取到另外一个 Fragment 直接调用方法传值。
 
+# Service 的生命周期？
+
+- 非绑定：onCreate() ->onStartCommand() ->onDestroy() 
+- 绑定：onCreate() ->onBind() -> onUnbind()->onDestroy() 
+
+# Service 的启动方式？
+
+## StartService
+
+通过startService启动后，service会一直无限期运行下去，只有外部调用了stopService()或stopSelf()方法时，该Service才会停止运行并销毁。
+
+如果startService的service已经被启动，那么会在次运行onStartCommand（）
+
+## bindService
+
+1. bindService启动的服务和调用者之间是典型的**client-server**模式。调用者是client，service则是server端。service只有一个，但绑定到service上面的client可以有一个或很多个。这里所提到的client指的是组件，比如某个Activity。
+2. **client可以通过IBinder接口获取Service实例**，从而实现在client端直接调用Service中的方法以实现灵活交互，这在通过startService方法启动中是无法实现的。
+   3.bindService启动服务的生命周期与其绑定的client息息相关。当client销毁时，client会自动与Service解除绑定。当然，client也可以明确调用Context的unbindService()方法与Service解除绑定。**当没有任何client与Service绑定时，Service会自行销毁**。
+
+# Service 与 IntentService 的区别?
+
+service既不是独立的进程也不是独立的线程，是依赖于主线程的，所以是不建议在service里面做过多的耗时操作的，避免ANR。
+
+intentService是Service的子类,继承service，拥有service的全部生命周期，包含了service的全部特性;
+
+在onCreat被执行时内部会开启一个线程,用于解决在后台服务中进行耗时操作;
+
 # Service 和 Activity 之间的通信方式？
 
-- 通过 Binder 对象
+- 在Intent跳转时携带数据（Binder）
 - 通过 Broadcast（广播）的形式
+- 全局变量
+- 静态变量
+- 外部存储
+- 事件总线
 
 # Android 动画有几种，对其理解
 1. 视图动画。视图移动、view 真真的位置并未移动。
@@ -106,3 +174,92 @@ Fragment 传值给 Fragment：一个 Fragment 通过 Activity 获取到另外一
 7. 视图状态动画。就是 View 在状态改变时执行的动画效果
 8. 矢量图动画。在图片的基础上做动画。
 9. 约束布局实现的关键帧动画。就是给需要动画效果的属性，准备一组与时间相关的值。关键的几个值。
+
+# 对 SurfaceView 的了解？
+
+`SurfaceView` 继承之`View`，但拥有独立的绘制表面，即它不与其宿主窗口共享同一个绘图表面，可以单独在一个线程进行绘制;一般游戏，视频播放，直播都会使用SurfaceView；
+
+## 与 View 的区别：
+
+1. `View`主要适用于主动更新的情况下，而`SurfaceView`主要适用于被动更新，例如频繁地刷新
+2. `View`在主线程中对画面进行刷新，而`SurfaceView`通常会通过一个子线程来进行页面的刷新
+3. `View`在绘图时没有使用双缓冲机制，而`SufaceView`在底层实现机制中就已经实现了双缓冲机制
+
+## 推荐使用 TextureView
+
+TextureView 同 SurfaceView 一样继承之 View 并在单独线程中渲染，但是相对于 SufraceView 的局限：
+
+1. 由于是独立的一层View，更像是独立的一个Window，不能加上动画、平移、缩放；
+2. 两个SurfaceView不能相互覆盖。
+
+Texture更像是一般的View，像TextView那样能被缩放、平移，也能加上动画。TextureView只能在开启了硬件加速的Window中使用，并且消费的内存要比SurfaceView多，并伴随着1-3帧的延迟。
+
+注意：因为 SurfaceView 拥有双缓存机制所以，相对游戏来说要比 Texture 更具有优势；
+
+# Serializable 和 Parcelable 的区别？
+
+Serializable（Java 自带）： Serializable 是序列化的意思，表示将一个对象转换成可存储或可传输的状态。序列化后的对象可以在网络上进行传输，也可以存储到本地。
+
+Parcelable（android 专用）： 除了 Serializable 之外，使用 Parcelable 也可以实现相同的效果， 不过不同于将对象进行序列化，Parcelable 方式的实现原理是将一个完整的对象进行分解， 而分解后的每一部分都是 Intent 所支持的数据类型，这样也就实现传递对象的功能了。
+
+## 区别
+
+1. 在使用内存的时候，Parcelable 类比 Serializable 性能高，所以推荐使用 Parcelable 类。
+2. Serializable 在序列化的时候会产生大量的临时变量，从而引起频繁的 GC。
+3. Parcelable 不能使用在要将数据存储在磁盘上的情况。尽管 Serializable 效率低点，但在这种情况下，还是建议你用 Serializable 。
+
+## 实现
+
+1. Serializable 的实现，只需要继承 Serializable 即可。这只是给对象打了一个标记，系统会自动将其序列化。
+2. Parcelabel 的实现，需要在类中添加一个静态成员变量 CREATOR，这个变量需要继承 Parcelable.Creator 接口，（一般利用编译器可以自动生成）。
+
+# 为什么不能在子线程更新 UI？
+
+`ViewRootImpl`对象是在`onResume`方法回调之后才创建，那么就说明了为什么在生命周期的`onCreate`方法里，甚至是`onResume`方法里都可以实现子线程更新UI，因为此时还没有创建`ViewRootImpl`对象，并不会进行是否为主线程的判断
+
+谷歌提出：“一定要在主线程更新`UI`”，实际是为了提高界面的效率和安全性，带来更好的流畅性；反推一下，假如允许多线程更新`UI`，但是访问`UI`是没有加锁的，一旦多线程抢占了资源，那么界面将会乱套更新了，体验效果就不言而喻了；所以在`Android`中规定必须在主线程更新`UI`
+
+# Recycleview 和 ListView 的区别？
+
+
+
+ListView
+
+1. ListView的Adapter继承的是BaseAdapter；
+2. ListView的ViewHolder不是强制要写的， 只是不写的话导致的后果就是如果数据一多，可能会导致OOM或者界面卡顿；
+3. ListView的分割线直接在布局中设置 divider
+4. ListView的点击事件直接是setOnItemClickListener
+
+RecyclerView
+
+1. RecyclerView的Adapter继承的是RecyclerView.Adapter
+2. RecyclerView的ViewHolder是必须要写的，是强制的，如果不写的话，就不能重写RecyclerView.Adapter中的3个方法 getItemCount()、onCreateViewHolder()、onBindViewHolder()分别表示 总共显示多少条目、创建ViewHolder、绑定数据；
+3. RecyclerView在setAdapter之前一定要设置显示的样式，否则数据不能显示;
+4. RecyclerView不支持直接在布局中添加分割线;
+5. RecyclerView不支持点击事件，只能用回调接口来设置点击事件在adapter中写;
+6. 在绑定数据的onBindViewHolder中给所有控件设置完点击事件后判断mItemClickListener不为空的话，设置点击事件，利用回调接口来设置点击事件;
+
+## 缓存机制
+
+ListView与RecyclerView缓存机制原理大致一样，不同的地方是，两者的缓存层级不同，ListView只有两层，RecycleView有四级缓存。
+
+## 局部刷新的区别
+
+RecyclerView可以进行局部刷新，而ListView是"一锅端”
+
+# view 的绘制流程？
+
+Measure、Layout、Draw
+
+- Measure： 用来计算 View 的实际大小（有父布局传递进来）
+- Layout：来确定 View 在父容器的布局位置，他是父容器获取子 View 的位置参数后，调用子 View 的 layout 方法并将位置参数传入实现的。
+- Draw：具体的绘制，会被多次调用
+
+# Application 和 Activity 的 Context 之间的区别？
+
+Activity和Application都是Context的子类，Context是上下文的意思，在实际应用中它起到了管理上下文环境中各个参数和变量的作用。虽然Application和Activity都是Context的子类，但是他们维护的生命周期是不一样的，前者维护一个Activity的生命周期，所以其对应的Context只能访问该Activity，后者维护一个Application的证明周期。
+
+
+
+
+

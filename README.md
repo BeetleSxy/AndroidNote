@@ -10,7 +10,7 @@
 
 [4-Framework：Android 库层](4-Framework/README.md)
 
-[5-Other：其他（项目相关）](5-Other/README.md)
+[5-Other：其他(项目相关)](5-Other/README.md)
 
 [6-Audition And Exception：面试和异常收集](6-Audition And Exception/README.md)
 
