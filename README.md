@@ -18,3 +18,5 @@
 
 [8-ComputerBasics：计算机基础](8-ComputerBasics/README.md)
 
+[9-Xmind:思维导图](9-Xmind/README.md)
+

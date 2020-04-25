@@ -13,4 +13,5 @@
 - [x]  [Markdown学习.md](Markdown学习.md)
 - [x]  [nvm 安装和使用.md](nvm 安装和使用.md) 
 - [ ]  [UML学习.md](UML学习.md) 
+- [x]  [Android Studio 快捷键 Mac 版](Android Studio 快捷键（mac）)
 
