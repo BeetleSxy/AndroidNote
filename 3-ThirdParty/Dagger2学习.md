@@ -142,3 +142,18 @@ init {
 
 ## @Scope
 
+### 作用
+
+@Scope`字面意思是范围，标志一个注入器/对象的使用范围，很多文章说成生命周期也是可以的。
+
+### 使用
+
+```java
+@Documented
+@Retention(RUNTIME)
+@Scope
+public @interface MyScope {}
+```
+
+MyScope 就是一个 Scope 注解，**Scope 注解只能标注目标类、@provide 方法和 Component。**Scope 注解要生效的话，需要同时标注在 Component 和提供依赖实例的 Module 或目标类上。**Module 中 provide 方法中的 Scope 注解必须和 与之绑定的 Component 的 Scope 注解一样，否则作用域不同会导致编译时会报错。**例如，CarModule 中 provide 方法的 Scope 是MyScope 的话，ManComponent 的 Scope 必须是 是 MyScope 这样作用域才会生效，而且不能是`@Singleton`或其他 Scope 注解，不然编译时 Dagger 2 会报错。
+
