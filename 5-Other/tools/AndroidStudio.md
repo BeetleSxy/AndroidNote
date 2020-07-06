@@ -69,15 +69,15 @@
 
 > ## 自动补全过滤掉首字母大小写
 
-　　我是受过够了时不时的去切换大小写了所以把他设置为不敏感,这样就可以丝滑的写代码了:![](img/snipaste_20170723_184123.png)
+　　我是受过够了时不时的去切换大小写了所以把他设置为不敏感,这样就可以丝滑的写代码了:![](AndroidStudio.assets/snipaste_20170723_184123.png)
 
 > ## 自动导包
 
-　　相信我这个真很实用,可以节省你好多时间,记住要全选![](img/snipaste_20170723_184433.png)
+　　相信我这个真很实用,可以节省你好多时间,记住要全选![](AndroidStudio.assets/snipaste_20170723_184433.png)
 
 > ## Log 等级颜色
 
-　　设置颜色对分辨 log 等级很有用;![](img/snipaste_20170723_190121.png)
+　　设置颜色对分辨 log 等级很有用;![](AndroidStudio.assets/snipaste_20170723_190121.png)
 这是我对应的色值:
 
 | **Log级别** | **色值** |
@@ -89,24 +89,24 @@
 | ERROR | FF0006 |
 | ASSERT | 8F0005 |
 
-效果如下:<br>![](img/snipaste_20170723_192815.png)
+效果如下:<br>![](AndroidStudio.assets/snipaste_20170723_192815.png)
 
 > ## 设置鼠标悬浮后提示api注释
 
-　　在你对导入的对象有疑问时这个是你的救星!后边的时间是悬停多少秒.![](img/snipaste_20170723_184748.png)
+　　在你对导入的对象有疑问时这个是你的救星!后边的时间是悬停多少秒.![](AndroidStudio.assets/snipaste_20170723_184748.png)
 
 > ## 限制每行代码长度
 
-　　和代码格式化快捷键搭配更加![](img/snipaste_20170723_210228.png)
-![](img/snipaste_20170723_210428.png)
+　　和代码格式化快捷键搭配更加![](AndroidStudio.assets/snipaste_20170723_210228.png)
+![](AndroidStudio.assets/snipaste_20170723_210428.png)
 
 > ## 酷炫的主题
 
 诚然自带的Durcula也不丑但是我是一个有审美的孩子.
- ![Durcula](img/snipaste_20170723_182717.png)
-所以我向你推荐一个AS的主题插件 Material Theme UI, ![Material Theme UI](img/snipaste_20170723_183406.png)
+ ![Durcula](AndroidStudio.assets/snipaste_20170723_182717.png)
+所以我向你推荐一个AS的主题插件 Material Theme UI, ![Material Theme UI](AndroidStudio.assets/snipaste_20170723_183406.png)
 还有很多主题自己去体验吧
 
 > ## 侧边导航栏
 
-　　侧边导航栏在代码量多的时候可以较快速的定位的代码位置,小屏幕就不要尝试了;![](img/snipaste_20170723_211359.png)
+　　侧边导航栏在代码量多的时候可以较快速的定位的代码位置,小屏幕就不要尝试了;![](AndroidStudio.assets/snipaste_20170723_211359.png)
