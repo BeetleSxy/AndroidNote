@@ -223,13 +223,44 @@ finally作为异常处理的一部分，它只能用在try/catch语句中，并�
 
 # List、Set、Map 的区别？
 
+## Collection
+```mermaid
+graph TD
+A[Collection] --> B(List)
+A --> C(Set)
+B --> D(ArrayList)
+B --> E(LinkedList)
+B --> F(Vector)
+C --> G(HashSet)
+C --> H(TreeSet)
+```
+## Map
 
+```mermaid
+graph TD
+A[Map] --> B(HashTable)
+A[Map] --> C(HashMap)
+A[Map] --> D(WeakHashMap)
+A[Map] --> E(TreeMap)
+```
 
-| List | Set  | Map  |
-| ---- | ---- | ---- |
-|      |      |      |
-|      |      |      |
-|      |      |      |
+## 总结
+Collection:
+每个位置只有一个元素。
+Map:
+持有 key-value pair，像个小型数据库。
+List：
+将以特定次序存储元素。所以取出来的顺序可能和放入顺序不同。
+Set：
+不能含有重复的元素
 
+# String 转换成 Integer 的方式及原理？
+
+`integer.parseInt(string str)`方法调用Integer内部的
+`parseInt(string str,10)`方法,默认基数为 10，parseInt 内部首先
+判断字符串是否包含符号（- 或者 +），则对相应的 negative 和 limit 进行
+赋值，然后再循环字符串，对单个 char 进行数值计算`Character.digit(char ch, int radix)`
+在这个方法中，函数肯定进入到0-9字符的判断（相对于 string 转换到 int），
+否则会抛出异常，数字就是如上面进行拼接然后生成的int类型数值。
 
 
