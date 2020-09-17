@@ -291,7 +291,7 @@ Measure、Layout、Draw
 
 Activity和Application都是Context的子类，Context是上下文的意思，在实际应用中它起到了管理上下文环境中各个参数和变量的作用。虽然Application和Activity都是Context的子类，但是他们维护的生命周期是不一样的，前者维护一个Activity的生命周期，所以其对应的Context只能访问该Activity，后者维护一个Application的证明周期。
 
+# Handler 同步屏障机制
 
-
-
+同步屏障机制就是插入一个同步屏障信息到Looper的队列头部，当Looper调用next获取信息时候，发现队列头部是一个同步屏障信息，就会跳过所有同步消息，寻找为异步的消息执行;
 
