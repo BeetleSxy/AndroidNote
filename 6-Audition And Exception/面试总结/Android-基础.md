@@ -79,13 +79,13 @@ Context数量 = Activity数量 + Service数量 + 1 （1为Application）
 - 优先级动态广播的优先级比静态广播高
 
 # Activity 的生命周期？
-三大类：开始，绘制，响应
-
-开始：onCreate->onStrart->onResume
-
-关闭：onPause->onStop->onDestroy
-
-后台销毁：onStop->onRestrart->onStrart
+- onCreate() (Activity创建时调用 )
+- onStart()(可见未获取焦点，无法与之交互 )
+- onResume()(可见已获取焦点，可与之交互 )
+- onPause()(可见，失去焦点 )
+- onStop()(不可见 )
+- onRestart()(Activity重启)
+- onDestroy()(Activity销毁)
 
 # Activity 的四种 LaunchMode（启动模式）的区别？
 
@@ -119,6 +119,30 @@ Context数量 = Activity数量 + Service数量 + 1 （1为Application）
 被复用时会走`onNewIntent()`而非`onCreate()`;
 
 全局唯一；
+
+# Activity 之间的通信方式？
+
+1. 在Intent跳转时携带数据
+2. 借助类的静态变量来实现
+3. 借助全局变量 Application 来实现
+4. 借助Service服务
+5. 借助外部存储来实现通讯
+6. 通过观察者设计模式
+7. 借助广播
+
+# Activity 各种情况下的生命周期？
+
+三大类：开始，绘制，响应
+
+开始：`onCreate` -> `onStrart` -> `onResume`
+
+关闭：`onPause` -> `onStop` -> `onDestroy`
+
+后台销毁：`onStop` -> `onRestrart` -> `onStrart`
+
+切换横/竖屏：`onPause` -> `onSaveInstanceState` -> `onStop` -> `onCreate` -> `onStart` -> `onResume`
+
+在 `launchMode` 设置情况下复用 `Activity` :`onNewIntent` -> `onStrart` -> `onResume`
 
 # Activity 和 Fragment 之间怎么通信， Fragment 和 Fragment 怎么通信？
 
