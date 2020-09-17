@@ -146,6 +146,12 @@ Context数量 = Activity数量 + Service数量 + 1 （1为Application）
 
 切换横/竖屏：`onPause` --> `onStop` --> `onDestroy` --> `onCreate` --> `onStart` --> `onRestoreInstanceState` --> `onResume`
 
+# Activity 与 Fragment 之间生命周期比较？
+
+![Activity 生命周期](img/Activity%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
+
+![Fragment 生命周期](img/Fragment%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
+
 # Activity 和 Fragment 之间怎么通信， Fragment 和 Fragment 怎么通信？
 
 Activity 传值给 Fragment：通过 Bundle 对象来传递，Activity 中构造 bundle 数据包，调用 Fragment 对象的 `setArguments(Bundle b)` 方法，Fragment 中使用 `getArguments()` 方法获取 Activity 传递过来的数据包取值。
