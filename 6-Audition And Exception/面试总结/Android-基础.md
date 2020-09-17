@@ -140,9 +140,11 @@ Context数量 = Activity数量 + Service数量 + 1 （1为Application）
 
 后台销毁：`onStop` -> `onRestrart` -> `onStrart`
 
-切换横/竖屏：`onPause` -> `onSaveInstanceState` -> `onStop` -> `onCreate` -> `onStart` -> `onResume`
-
 在 `launchMode` 设置情况下复用 `Activity` :`onNewIntent` -> `onStrart` -> `onResume`
+
+# 横竖屏切换时 Activity 的生命周期
+
+切换横/竖屏：`onPause` --> `onStop` --> `onDestroy` --> `onCreate` --> `onStart` --> `onRestoreInstanceState` --> `onResume`
 
 # Activity 和 Fragment 之间怎么通信， Fragment 和 Fragment 怎么通信？
 
