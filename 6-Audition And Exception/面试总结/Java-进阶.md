@@ -136,3 +136,8 @@ Employee emp4 = (Employee) emp3.clone();
 ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.obj"));
 Employee emp5 = (Employee) in.readObject();
 ```
+
+# 多线程断点续传的实现原理？
+
+基本思想就发送端将文件分割为大小相当的多块，用多线程，将这些块同时发送到服务器。在服务器端的服务程序监听数据传输请求，每当接到新的请求，则创建一个新的线程，与客户端的发送线程对应，接收数据，记录数据传输进程；[链接](https://juejin.im/post/6844904013440221198)
+
