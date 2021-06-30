@@ -12,7 +12,7 @@
 
 [5-Other：其他](5-Other/README.md)
 
-[6-Audition And Exception：面试和异常收集](6-Audition And Exception/README.md)
+[6-Audition_And_Exception：面试和异常收集](6-Audition_And_Exception/README.md)
 
 [7-CrossPlatform：跨平台](7-CrossPlatform/README.md)
 
